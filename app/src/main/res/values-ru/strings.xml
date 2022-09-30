@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Лаб1</string>
+    <string name="text_buttonAdd">Добавить</string>
+    <string name="text_button1">Кнопка 1</string>
+    <string name="text_button2">Кнопка 2</string>
+    <string name="text_button3">Кнопка 3</string>
+</resources>

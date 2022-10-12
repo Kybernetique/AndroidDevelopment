@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "List is empty!",
                             Toast.LENGTH_LONG).show();
                 }
-            } catch (Exception ex ) {
+            } catch (Exception ex) {
                 Toast.makeText(MainActivity.this, "Error!",
                         Toast.LENGTH_LONG).show();
             }
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "List is empty!",
                             Toast.LENGTH_LONG).show();
                 }
-            } catch (Exception ex ) {
+            } catch (Exception ex) {
                 Toast.makeText(MainActivity.this, "Error!",
                         Toast.LENGTH_LONG).show();
             }
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
             for (int i = 0; i < sbArray.size(); i++) {
                 int key = sbArray.keyAt(i);
                 if (sbArray.get(key)) {
-                    result= listOfBosses.get(i);
+                    result = listOfBosses.get(i);
                     Toast.makeText(MainActivity.this, result,
                             Toast.LENGTH_SHORT).show();
                 }

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Lab1</string>
     <string name="text_buttonAdd">Add</string>
-    <string name="text_button1">Button 1</string>
-    <string name="text_button2">Button 2</string>
-    <string name="text_button3">Button 3</string>
+    <string name="text_buttonSelectAll">Select all</string>
+    <string name="text_buttonDeselectAll">Deselect all</string>
+    <string name="text_buttonPrintAll">Print all</string>
 </resources>

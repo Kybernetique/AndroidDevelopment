@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="text_button">button</string>
+    <string name="app_name">Lab1</string>
+    <string name="text_buttonAdd">Add</string>
+    <string name="text_buttonSelectAll">Select all</string>
+    <string name="text_buttonDeselectAll">Deselect all</string>
+    <string name="text_buttonPrintAll">Print all</string>
 </resources>

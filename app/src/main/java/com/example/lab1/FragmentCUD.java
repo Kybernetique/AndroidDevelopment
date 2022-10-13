@@ -4,11 +4,10 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.SparseBooleanArray;
-import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,10 +21,15 @@ public class FragmentCUD extends Fragment {
 
     ArrayList<String> listOfBosses;
     ListView listViewOfBosses;
+
     EditText editTextBossFullName;
+
     Button buttonCreate;
     Button buttonUpdate;
     Button buttonDelete;
+
+    int selectedItemPosition;
+    String selectedItemValue;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,15 @@ public class FragmentCUD extends Fragment {
         buttonCreate = view.findViewById(R.id.buttonCreate);
         buttonUpdate = view.findViewById(R.id.buttonUpdate);
         buttonDelete = view.findViewById(R.id.buttonDelete);
+
+        listViewOfBosses.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedItemPosition = i;
+                selectedItemValue = listViewOfBosses.getItemAtPosition(i).toString();
+            }
+        });
+
 
         buttonCreate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,17 +78,27 @@ public class FragmentCUD extends Fragment {
             }
         });
 
+        buttonUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    listOfBosses.set(selectedItemPosition, editTextBossFullName
+                            .getText().toString());
+                    adapter.notifyDataSetChanged();
+
+                } catch (Exception ex) {
+                    Toast.makeText(getActivity(), "Error!",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
-                    for (int i = 0; i < listOfBosses.size(); i++) {
-                        if (listViewOfBosses.isItemChecked(i)) {
-                            listOfBosses.remove(i);
-                            listViewOfBosses.clearChoices();
-                        }
-                    }
+                    listOfBosses.remove(selectedItemPosition);
+                    listViewOfBosses.clearChoices();
                     adapter.notifyDataSetChanged();
                 } catch (Exception ex) {
                     Toast.makeText(getActivity(), "Error!",
@@ -94,6 +117,7 @@ public class FragmentCUD extends Fragment {
 
         return view;
     }
+
 
 /*    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

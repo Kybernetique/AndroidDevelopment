@@ -16,8 +16,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
-public class FragmentCUD extends Fragment {
+public class FragmentCRUD extends Fragment {
     ArrayAdapter<String> adapter;
 
     ArrayList<String> listOfBosses;
@@ -33,6 +34,8 @@ public class FragmentCUD extends Fragment {
     int selectedItemPosition;
     String selectedItemValue;
 
+    static ArrayList<String> output;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +44,7 @@ public class FragmentCUD extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_cud, container, false);
+        View view = inflater.inflate(R.layout.fragment_crud, container, false);
 
         listOfBosses = new ArrayList<>();
         listViewOfBosses = view.findViewById(R.id.listViewOfBosses); // получили доступ к listview
@@ -51,6 +54,7 @@ public class FragmentCUD extends Fragment {
         buttonRead = view.findViewById(R.id.buttonRead);
         buttonUpdate = view.findViewById(R.id.buttonUpdate);
         buttonDelete = view.findViewById(R.id.buttonDelete);
+
 
         listViewOfBosses.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -67,6 +71,7 @@ public class FragmentCUD extends Fragment {
                 try {
                     if (!listOfBosses.contains(editTextBossFullName.getText().toString())) {
                         listOfBosses.add(editTextBossFullName.getText().toString());
+
                         adapter = new ArrayAdapter<>(getActivity(),
                                 R.layout.forlist, listOfBosses); // то, как данные будут храниться
                         listViewOfBosses.setAdapter(adapter);
@@ -86,6 +91,11 @@ public class FragmentCUD extends Fragment {
         buttonRead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String input = editTextBossFullName.getText().toString();
+                output = (ArrayList<String>) listOfBosses
+                        .stream()
+                        .filter(value -> value.startsWith(input))
+                        .collect(Collectors.toList());
                 Intent intent = new Intent(getActivity(), ResultActivity.class);
                 (getActivity()).startActivity(intent);
             }

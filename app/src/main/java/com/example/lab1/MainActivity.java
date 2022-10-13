@@ -3,10 +3,7 @@ package com.example.lab1;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 /*    Button buttonSelectAll;
@@ -18,10 +15,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FragmentCUD fragmentCUD = new FragmentCUD();
+        FragmentCRUD fragmentCRUD = new FragmentCRUD();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager()
                 .beginTransaction();
-        fragmentTransaction.replace(R.id.FragmentContainer, fragmentCUD);
+        fragmentTransaction.replace(R.id.FragmentContainer, fragmentCRUD);
         fragmentTransaction.commit();
 
 /*        buttonSelectAll.setOnClickListener(view -> {

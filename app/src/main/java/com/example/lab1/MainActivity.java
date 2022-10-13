@@ -13,32 +13,16 @@ public class MainActivity extends AppCompatActivity {
     Button buttonDeselectAll;
     Button buttonPrintAll;*/
 
-    Button buttonRead;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        buttonRead = findViewById(R.id.buttonRead);
 
         FragmentCUD fragmentCUD = new FragmentCUD();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager()
                 .beginTransaction();
         fragmentTransaction.replace(R.id.FragmentContainer, fragmentCUD);
         fragmentTransaction.commit();
-
-        buttonRead.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                buttonRead.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(MainActivity.this, ResultActivity.class);
-                        startActivity(intent);
-                    }
-                });
-            }
-        });
 
 /*        buttonSelectAll.setOnClickListener(view -> {
             try {

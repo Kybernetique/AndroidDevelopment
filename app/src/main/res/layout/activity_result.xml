@@ -8,9 +8,9 @@
     tools:context=".ResultActivity">
 
     <ListView
-        android:id="@+id/listViewOfBosses"
+        android:id="@+id/listViewResult"
         android:layout_width="match_parent"
-        android:layout_height="654dp" />
+        android:layout_height="325dp" />
 
     <Button
         android:id="@+id/buttonBack"

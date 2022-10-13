@@ -48,9 +48,7 @@ public class FragmentCUD extends Fragment {
         editTextBossFullName = view.findViewById(R.id.editTextBossFullName);
 
         buttonCreate = view.findViewById(R.id.buttonCreate);
-/*
         buttonRead = view.findViewById(R.id.buttonRead);
-*/
         buttonUpdate = view.findViewById(R.id.buttonUpdate);
         buttonDelete = view.findViewById(R.id.buttonDelete);
 
@@ -85,13 +83,13 @@ public class FragmentCUD extends Fragment {
             }
         });
 
-/*        buttonRead.setOnClickListener(new View.OnClickListener() {
+        buttonRead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), ResultActivity.class);
-                startActivity(intent);
+                (getActivity()).startActivity(intent);
             }
-        });*/
+        });
 
         buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override

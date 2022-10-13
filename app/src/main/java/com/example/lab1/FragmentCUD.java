@@ -67,6 +67,7 @@ public class FragmentCUD extends Fragment {
                                 R.layout.forlist, listOfBosses); // то, как данные будут храниться
                         listViewOfBosses.setAdapter(adapter);
                         listViewOfBosses.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+                        listViewOfBosses.clearChoices();
                     } else {
                         Toast.makeText(getActivity(), "The element already exists!",
                                 Toast.LENGTH_LONG).show();
@@ -82,12 +83,15 @@ public class FragmentCUD extends Fragment {
             @Override
             public void onClick(View view) {
                 try {
-                    listOfBosses.set(selectedItemPosition, editTextBossFullName
-                            .getText().toString());
-                    adapter.notifyDataSetChanged();
+                    if (!selectedItemValue.isEmpty()) {
+                        listOfBosses.set(selectedItemPosition, editTextBossFullName
+                                .getText().toString());
+                        adapter.notifyDataSetChanged();
+                        listViewOfBosses.clearChoices();
+                    }
 
                 } catch (Exception ex) {
-                    Toast.makeText(getActivity(), "Error!",
+                    Toast.makeText(getActivity(), "Select an item first.",
                             Toast.LENGTH_LONG).show();
                 }
             }
@@ -98,20 +102,12 @@ public class FragmentCUD extends Fragment {
             public void onClick(View view) {
                 try {
                     listOfBosses.remove(selectedItemPosition);
-                    listViewOfBosses.clearChoices();
                     adapter.notifyDataSetChanged();
+                    listViewOfBosses.clearChoices();
                 } catch (Exception ex) {
                     Toast.makeText(getActivity(), "Error!",
                             Toast.LENGTH_SHORT).show();
                 }
-                /*                SparseBooleanArray sbArray = listViewOfBosses.getCheckedItemPositions();
-                for (int i = 0; i < sbArray.size(); i++) {
-                    int key = sbArray.keyAt(i);
-                    if ( sbArray.get(key)) {
-                        sbArray.delete(key);
-                        listOfBosses.remove(key);
-                    }
-                }*/
             }
         });
 

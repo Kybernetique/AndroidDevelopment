@@ -1,10 +1,12 @@
 package com.example.lab1;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,7 +77,7 @@ public class FragmentCRUD extends Fragment {
                         adapter = new ArrayAdapter<>(getActivity(),
                                 R.layout.forlist, listOfBosses); // то, как данные будут храниться
                         listViewOfBosses.setAdapter(adapter);
-                        listViewOfBosses.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+                        listViewOfBosses.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
                         listViewOfBosses.clearChoices();
                     } else {
                         Toast.makeText(getActivity(), "The element already exists!",
@@ -106,10 +108,16 @@ public class FragmentCRUD extends Fragment {
             public void onClick(View view) {
                 try {
                     if (!selectedItemValue.isEmpty()) {
-                        listOfBosses.set(selectedItemPosition, editTextBossFullName
-                                .getText().toString());
-                        adapter.notifyDataSetChanged();
-                        listViewOfBosses.clearChoices();
+                        if (!listOfBosses.contains(editTextBossFullName.getText().toString())) {
+                            listOfBosses.set(selectedItemPosition, editTextBossFullName
+                                    .getText().toString());
+                            adapter.notifyDataSetChanged();
+                            listViewOfBosses.clearChoices();
+                        }
+                        else {
+                            Toast.makeText(getActivity(), "There is already an element with this name.",
+                                    Toast.LENGTH_LONG).show();
+                        }
                     }
 
                 } catch (Exception ex) {

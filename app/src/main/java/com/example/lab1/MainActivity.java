@@ -41,21 +41,6 @@ public class MainActivity extends AppCompatActivity {
                     .beginTransaction();
             fragmentTransaction.replace(R.id.FragmentContainer, fragmentCreate);
             fragmentTransaction.commit();
-/*            try {
-                if (!listOfBosses.contains(editTextBossFullName.getText().toString())) {
-                    listOfBosses.add(editTextBossFullName.getText().toString());
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(MainActivity.this,
-                            R.layout.forlist, listOfBosses); // то, как данные будут храниться
-                    listViewOfBosses.setAdapter(adapter);
-                    listViewOfBosses.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-                } else {
-                    Toast.makeText(MainActivity.this, "The element already exists!",
-                            Toast.LENGTH_LONG).show();
-                }
-            } catch (Exception ex) {
-                Toast.makeText(MainActivity.this, "Error!",
-                        Toast.LENGTH_LONG).show();
-            }*/
         });
 
         buttonRead.setOnClickListener(view -> {

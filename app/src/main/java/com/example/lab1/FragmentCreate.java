@@ -31,8 +31,33 @@ public class FragmentCreate extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_create, container, false);
+        View view = inflater.inflate(R.layout.fragment_create, container, false);
+
+        listOfBosses = new ArrayList<>();
+        listViewOfBosses = view.findViewById(R.id.listViewOfBosses); // получили доступ к listview
+        editTextBossFullName = view.findViewById(R.id.editTextBossFullName);
+        buttonAdd = view.findViewById(R.id.buttonAdd);
+
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    if (!listOfBosses.contains(editTextBossFullName.getText().toString())) {
+                        listOfBosses.add(editTextBossFullName.getText().toString());
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
+                                R.layout.forlist, listOfBosses); // то, как данные будут храниться
+                        listViewOfBosses.setAdapter(adapter);
+                        listViewOfBosses.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+                    } else {
+                        Toast.makeText(getActivity(), "The element already exists!",
+                                Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception ex) {
+                    Toast.makeText(getActivity(), "Error!",
+                            Toast.LENGTH_LONG).show();
+                }            }
+        });
+        return view;
     }
 
 /*    @Override

@@ -135,15 +135,4 @@ public class FragmentCRUD extends Fragment {
 
         return view;
     }
-
-
-/*    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        editTextBossFullName = view.findViewById(R.id.editTextBossFullName);
-        listViewOfBosses = view.findViewById(R.id.listViewOfBosses);
-        buttonAdd = view.findViewById(R.id.buttonAdd);
-    }*/
-
 }

@@ -8,4 +8,6 @@
     <string name="text_buttonSelectAll">Выбрать всех</string>
     <string name="text_buttonDeselectAll">Отменить выбор</string>
     <string name="text_buttonPrintAll">Вывести всех</string>
+    <string name="text_buttonBack">Назад</string>
+    <string name="full_name">Иванов ИИ</string>
 </resources>

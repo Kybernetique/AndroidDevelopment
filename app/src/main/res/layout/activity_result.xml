@@ -10,11 +10,29 @@
     <ListView
         android:id="@+id/listViewResult"
         android:layout_width="match_parent"
-        android:layout_height="660dp" />
+        android:layout_height="457dp" />
+
+    <Button
+        android:id="@+id/buttonSelectAll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_buttonSelectAll" />
+
+    <Button
+        android:id="@+id/buttonDeselectAll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_buttonDeselectAll" />
+
+    <Button
+        android:id="@+id/buttonPrintAll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_buttonPrintAll" />
 
     <Button
         android:id="@+id/buttonBack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Back" />
+        android:text="@string/text_buttonBack" />
 </LinearLayout>

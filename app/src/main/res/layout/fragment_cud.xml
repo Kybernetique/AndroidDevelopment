@@ -22,7 +22,7 @@
     <ListView
         android:id="@+id/listViewOfBosses"
         android:layout_width="match_parent"
-        android:layout_height="449dp"
+        android:layout_height="386dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="208dp">
 

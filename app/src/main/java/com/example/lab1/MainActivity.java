@@ -3,21 +3,23 @@ package com.example.lab1;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    Button buttonSelectAll;
+/*    Button buttonSelectAll;
     Button buttonDeselectAll;
-    Button buttonPrintAll;
+    Button buttonPrintAll;*/
+
+    Button buttonRead;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        buttonRead = findViewById(R.id.buttonRead);
 
         FragmentCUD fragmentCUD = new FragmentCUD();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager()
@@ -25,6 +27,18 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.FragmentContainer, fragmentCUD);
         fragmentTransaction.commit();
 
+        buttonRead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                buttonRead.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+                        startActivity(intent);
+                    }
+                });
+            }
+        });
 
 /*        buttonSelectAll.setOnClickListener(view -> {
             try {

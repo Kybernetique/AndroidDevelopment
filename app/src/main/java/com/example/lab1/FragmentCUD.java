@@ -1,5 +1,6 @@
 package com.example.lab1;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -25,6 +26,7 @@ public class FragmentCUD extends Fragment {
     EditText editTextBossFullName;
 
     Button buttonCreate;
+    Button buttonRead;
     Button buttonUpdate;
     Button buttonDelete;
 
@@ -44,7 +46,11 @@ public class FragmentCUD extends Fragment {
         listOfBosses = new ArrayList<>();
         listViewOfBosses = view.findViewById(R.id.listViewOfBosses); // получили доступ к listview
         editTextBossFullName = view.findViewById(R.id.editTextBossFullName);
+
         buttonCreate = view.findViewById(R.id.buttonCreate);
+/*
+        buttonRead = view.findViewById(R.id.buttonRead);
+*/
         buttonUpdate = view.findViewById(R.id.buttonUpdate);
         buttonDelete = view.findViewById(R.id.buttonDelete);
 
@@ -78,6 +84,14 @@ public class FragmentCUD extends Fragment {
                 }
             }
         });
+
+/*        buttonRead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ResultActivity.class);
+                startActivity(intent);
+            }
+        });*/
 
         buttonUpdate.setOnClickListener(new View.OnClickListener() {
             @Override

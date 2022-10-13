@@ -11,12 +11,18 @@
     <FrameLayout
         android:id="@+id/FragmentContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="671dp"
         android:layout_gravity="center"
         android:gravity="center"
         android:orientation="vertical">
 
     </FrameLayout>
+
+    <Button
+        android:id="@+id/buttonRead"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_buttonRead" />
 
     <!--    <Button
         android:id="@+id/buttonSelectAll"

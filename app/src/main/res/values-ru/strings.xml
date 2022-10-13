@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Лаб1</string>
+    <string name="text_buttonCreate">Добавить</string>
+    <string name="text_buttonRead">Найти</string>
+    <string name="text_buttonUpdate">Редактировать</string>
+    <string name="text_buttonDelete">Удалить</string>
+    <string name="text_buttonSelectAll">Выбрать всех</string>
+    <string name="text_buttonDeselectAll">Отменить выбор</string>
+    <string name="text_buttonPrintAll">Вывести всех</string>
+</resources>

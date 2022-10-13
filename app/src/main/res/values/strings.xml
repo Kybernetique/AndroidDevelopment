@@ -7,4 +7,5 @@
     <string name="text_buttonSelectAll">Select all</string>
     <string name="text_buttonDeselectAll">Deselect all</string>
     <string name="text_buttonPrintAll">Print all</string>
+    <string name="full_name">Full Name</string>
 </resources>

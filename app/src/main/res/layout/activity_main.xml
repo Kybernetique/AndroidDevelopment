@@ -11,40 +11,12 @@
     <FrameLayout
         android:id="@+id/FragmentContainer"
         android:layout_width="match_parent"
-        android:layout_height="506dp"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
         android:orientation="vertical">
 
     </FrameLayout>
-
-    <Button
-        android:id="@+id/buttonCreate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClickCreate"
-        android:text="@string/text_buttonCreate" />
-
-    <Button
-        android:id="@+id/buttonRead"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClickRead"
-        android:text="@string/text_buttonRead" />
-
-    <Button
-        android:id="@+id/buttonUpdate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClickUpdate"
-        android:text="@string/text_buttonUpdate" />
-
-    <Button
-        android:id="@+id/buttonDelete"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="onClickDelete"
-        android:text="@string/text_buttonDelete" />
 
     <!--    <Button
         android:id="@+id/buttonSelectAll"

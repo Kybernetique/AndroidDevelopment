@@ -2,10 +2,10 @@ package com.example.lab1;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.SparseBooleanArray;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +17,15 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class FragmentCreate extends Fragment {
+public class FragmentCUD extends Fragment {
+    ArrayAdapter<String> adapter;
+
     ArrayList<String> listOfBosses;
     ListView listViewOfBosses;
     EditText editTextBossFullName;
-    Button buttonAdd;
+    Button buttonCreate;
+    Button buttonUpdate;
+    Button buttonDelete;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,23 +35,25 @@ public class FragmentCreate extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_create, container, false);
+        View view = inflater.inflate(R.layout.fragment_cud, container, false);
 
         listOfBosses = new ArrayList<>();
         listViewOfBosses = view.findViewById(R.id.listViewOfBosses); // получили доступ к listview
         editTextBossFullName = view.findViewById(R.id.editTextBossFullName);
-        buttonAdd = view.findViewById(R.id.buttonAdd);
+        buttonCreate = view.findViewById(R.id.buttonCreate);
+        buttonUpdate = view.findViewById(R.id.buttonUpdate);
+        buttonDelete = view.findViewById(R.id.buttonDelete);
 
-        buttonAdd.setOnClickListener(new View.OnClickListener() {
+        buttonCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
                     if (!listOfBosses.contains(editTextBossFullName.getText().toString())) {
                         listOfBosses.add(editTextBossFullName.getText().toString());
-                        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
+                        adapter = new ArrayAdapter<>(getActivity(),
                                 R.layout.forlist, listOfBosses); // то, как данные будут храниться
                         listViewOfBosses.setAdapter(adapter);
-                        listViewOfBosses.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+                        listViewOfBosses.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
                     } else {
                         Toast.makeText(getActivity(), "The element already exists!",
                                 Toast.LENGTH_LONG).show();
@@ -55,8 +61,37 @@ public class FragmentCreate extends Fragment {
                 } catch (Exception ex) {
                     Toast.makeText(getActivity(), "Error!",
                             Toast.LENGTH_LONG).show();
-                }            }
+                }
+            }
         });
+
+
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    for (int i = 0; i < listOfBosses.size(); i++) {
+                        if (listViewOfBosses.isItemChecked(i)) {
+                            listOfBosses.remove(i);
+                            listViewOfBosses.clearChoices();
+                        }
+                    }
+                    adapter.notifyDataSetChanged();
+                } catch (Exception ex) {
+                    Toast.makeText(getActivity(), "Error!",
+                            Toast.LENGTH_SHORT).show();
+                }
+                /*                SparseBooleanArray sbArray = listViewOfBosses.getCheckedItemPositions();
+                for (int i = 0; i < sbArray.size(); i++) {
+                    int key = sbArray.keyAt(i);
+                    if ( sbArray.get(key)) {
+                        sbArray.delete(key);
+                        listOfBosses.remove(key);
+                    }
+                }*/
+            }
+        });
+
         return view;
     }
 
@@ -69,21 +104,4 @@ public class FragmentCreate extends Fragment {
         buttonAdd = view.findViewById(R.id.buttonAdd);
     }*/
 
-/*    protected void addBoss() {
-        try {
-            if (!listOfBosses.contains(editTextBossFullName.getText().toString())) {
-                listOfBosses.add(editTextBossFullName.getText().toString());
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
-                        R.layout.forlist, listOfBosses); // то, как данные будут храниться
-                listViewOfBosses.setAdapter(adapter);
-                listViewOfBosses.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-            } else {
-                Toast.makeText(getActivity(), "The element already exists!",
-                        Toast.LENGTH_LONG).show();
-            }
-        } catch (Exception ex) {
-            Toast.makeText(getActivity(), "Error!",
-                    Toast.LENGTH_LONG).show();
-        }
-    }*/
 }

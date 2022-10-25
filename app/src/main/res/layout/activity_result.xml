@@ -1,38 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ResultActivity">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ResultActivity">
 
     <ListView
-        android:id="@+id/listViewResult"
-        android:layout_width="match_parent"
-        android:layout_height="457dp" />
+            android:id="@+id/listViewResult"
+            android:layout_width="match_parent"
+            android:layout_height="457dp" />
 
     <Button
-        android:id="@+id/buttonSelectAll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/text_buttonSelectAll" />
+            android:id="@+id/buttonSelectAll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+            android:text="@string/text_buttonSelectAll" />
 
     <Button
-        android:id="@+id/buttonDeselectAll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/text_buttonDeselectAll" />
+            android:id="@+id/buttonDeselectAll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+            android:text="@string/text_buttonDeselectAll" />
 
     <Button
-        android:id="@+id/buttonPrintAll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/text_buttonPrintAll" />
+            android:id="@+id/buttonPrintAll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+            android:text="@string/text_buttonPrintAll" />
 
     <Button
-        android:id="@+id/buttonBack"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/text_buttonBack" />
+            android:id="@+id/buttonBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/text_buttonBack" />
 </LinearLayout>

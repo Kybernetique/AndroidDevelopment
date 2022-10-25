@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".FragmentCRUD"
+        android:orientation="horizontal">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="509dp"
+            android:layout_height="298dp">
+
+        <ListView
+                android:id="@+id/listViewOfBosses"
+                android:layout_width="match_parent"
+                android:layout_height="229dp"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="208dp">
+
+        </ListView>
+
+        <EditText
+                android:id="@+id/editTextBossFullName"
+                android:layout_width="match_parent"
+                android:layout_height="71dp"
+                android:autofillHints=""
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="@string/full_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="208dp"
+            android:orientation="vertical">
+
+        <Button
+                android:id="@+id/buttonCreate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/text_buttonCreate" />
+
+        <Button
+                android:id="@+id/buttonRead"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/text_buttonRead" />
+
+        <Button
+                android:id="@+id/buttonUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/text_buttonUpdate" />
+
+        <Button
+                android:id="@+id/buttonDelete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/text_buttonDelete"
+                android:minHeight="48dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

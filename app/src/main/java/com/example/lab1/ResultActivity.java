@@ -35,8 +35,6 @@ public class ResultActivity extends AppCompatActivity {
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(ResultActivity.this,
                 R.layout.forlist, listResult); // то, как данные будут храниться
-        listViewResult.setAdapter(adapter);
-        listViewResult.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
         buttonSelectAll.setOnClickListener(view -> {
             try {
@@ -93,6 +91,9 @@ public class ResultActivity extends AppCompatActivity {
                 finish();
             }
         });
+        listViewResult.setAdapter(adapter);
+        listViewResult.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+
     }
 
 }

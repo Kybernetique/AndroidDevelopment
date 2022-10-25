@@ -33,10 +33,4 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.FragmentContainer, fragmentCRUD, FRAGMENT_TAG)
                 .commit();
     }
-
-/*    @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        fragmentCRUD.listOfBosses = savedInstanceState.getStringArrayList(key);
-        super.onRestoreInstanceState(savedInstanceState);
-    }*/
 }

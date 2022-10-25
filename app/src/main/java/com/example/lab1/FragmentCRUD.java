@@ -31,9 +31,7 @@ public class FragmentCRUD extends Fragment {
     View view;
     ArrayList<String> listOfBosses ;
     ListView listViewOfBosses;
-/*
-FrameLayout frameLayout;
-*/
+
     EditText editTextBossFullName;
 
     Button buttonCreate;
@@ -55,14 +53,6 @@ FrameLayout frameLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-/*
-        frameLayout = new FrameLayout(getActivity());
-*/
-
-/*
-        inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-*/
         view = inflater.inflate(R.layout.fragment_crud, container, false);
 
         listViewOfBosses = view.findViewById(R.id.listViewOfBosses); // получили доступ к listview
@@ -80,6 +70,11 @@ FrameLayout frameLayout;
             listOfBosses = new ArrayList<>();
         }
 
+        adapter = new ArrayAdapter<>(getActivity(), R.layout.forlist, listOfBosses); // то, как данные будут храниться
+        listViewOfBosses.setAdapter(adapter);
+        listViewOfBosses.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        listViewOfBosses.clearChoices();
+
         listViewOfBosses.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -95,10 +90,7 @@ FrameLayout frameLayout;
                 try {
                     if (!listOfBosses.contains(editTextBossFullName.getText().toString())) {
                         listOfBosses.add(editTextBossFullName.getText().toString());
-                        adapter = new ArrayAdapter<>(getActivity(), R.layout.forlist, listOfBosses); // то, как данные будут храниться
-                        listViewOfBosses.setAdapter(adapter);
-                        listViewOfBosses.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-                        listViewOfBosses.clearChoices();
+                        adapter.notifyDataSetChanged();
                     }
                     else {
                         Toast.makeText(getActivity(), "The element already exists!", Toast.LENGTH_LONG).show();
@@ -114,7 +106,7 @@ FrameLayout frameLayout;
             @Override
             public void onClick(View view) {
                 String input = editTextBossFullName.getText().toString();
-                output = (ArrayList<String>) listOfBosses.stream().filter(value -> value.startsWith(input)).collect(Collectors.toList());
+                output = (ArrayList<String>) listOfBosses.stream().filter(value -> value.contains(input)).collect(Collectors.toList());
                 Intent intent = new Intent(getActivity(), ResultActivity.class);
                 (getActivity()).startActivity(intent);
             }
@@ -155,9 +147,6 @@ FrameLayout frameLayout;
                 }
             }
         });
-/*
-        frameLayout.addView(view);
-*/
         return view;
     }
 
@@ -166,17 +155,5 @@ FrameLayout frameLayout;
         outState.putStringArrayList(key, listOfBosses);
         super.onSaveInstanceState(outState);
     }
-/*
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        frameLayout.removeAllViews();
-
-        LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        view = inflater.inflate(R.layout.fragment_crud, null);
-
-        frameLayout.addView(view);
-    }*/
 }
 

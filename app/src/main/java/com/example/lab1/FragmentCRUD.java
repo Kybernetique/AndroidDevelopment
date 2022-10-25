@@ -27,17 +27,26 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class FragmentCRUD extends Fragment {
-    FrameLayout frameLayout;
-
+    ArrayAdapter<String> adapter;
     View view;
+    ArrayList<String> listOfBosses ;
+    ListView listViewOfBosses;
+/*
+FrameLayout frameLayout;
+*/
+    EditText editTextBossFullName;
 
-    ArrayList<String> listOfBosses = new ArrayList<>();
-    ArrayAdapter adapter; // то, как данные будут храниться
+    Button buttonCreate;
+    Button buttonRead;
+    Button buttonUpdate;
+    Button buttonDelete;
 
     int selectedItemPosition;
     String selectedItemValue;
 
     static ArrayList<String> output;
+
+    static String key = "listOfBosses";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,17 +55,30 @@ public class FragmentCRUD extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+/*
         frameLayout = new FrameLayout(getActivity());
+*/
+
+/*
         inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+*/
         view = inflater.inflate(R.layout.fragment_crud, container, false);
 
-        ListView listViewOfBosses = view.findViewById(R.id.listViewOfBosses); // получили доступ к listview
-        EditText editTextBossFullName = view.findViewById(R.id.editTextBossFullName);
+        listViewOfBosses = view.findViewById(R.id.listViewOfBosses); // получили доступ к listview
+        editTextBossFullName = view.findViewById(R.id.editTextBossFullName);
 
-        Button buttonCreate = view.findViewById(R.id.buttonCreate);
-        Button buttonRead = view.findViewById(R.id.buttonRead);
-        Button buttonUpdate = view.findViewById(R.id.buttonUpdate);
-        Button buttonDelete = view.findViewById(R.id.buttonDelete);
+        buttonCreate = view.findViewById(R.id.buttonCreate);
+        buttonRead = view.findViewById(R.id.buttonRead);
+        buttonUpdate = view.findViewById(R.id.buttonUpdate);
+        buttonDelete = view.findViewById(R.id.buttonDelete);
+
+        if (savedInstanceState != null) {
+            listOfBosses = savedInstanceState.getStringArrayList(key);
+        }
+        else {
+            listOfBosses = new ArrayList<>();
+        }
 
         listViewOfBosses.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -66,15 +88,16 @@ public class FragmentCRUD extends Fragment {
             }
         });
 
+
         buttonCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
                     if (!listOfBosses.contains(editTextBossFullName.getText().toString())) {
                         listOfBosses.add(editTextBossFullName.getText().toString());
-                        adapter = new ArrayAdapter<>(getActivity(), R.layout.forlist, listOfBosses);
+                        adapter = new ArrayAdapter<>(getActivity(), R.layout.forlist, listOfBosses); // то, как данные будут храниться
                         listViewOfBosses.setAdapter(adapter);
-                        listViewOfBosses.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+                        listViewOfBosses.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
                         listViewOfBosses.clearChoices();
                     }
                     else {
@@ -132,13 +155,18 @@ public class FragmentCRUD extends Fragment {
                 }
             }
         });
-
+/*
         frameLayout.addView(view);
-
-        return frameLayout;
+*/
+        return view;
     }
 
-
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putStringArrayList(key, listOfBosses);
+        super.onSaveInstanceState(outState);
+    }
+/*
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -149,6 +177,6 @@ public class FragmentCRUD extends Fragment {
         view = inflater.inflate(R.layout.fragment_crud, null);
 
         frameLayout.addView(view);
-    }
-
+    }*/
 }
+

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class ResultActivity extends AppCompatActivity {
+    ArrayAdapter<String> adapter;
     Button buttonBack;
     Button buttonSelectAll;
     Button buttonDeselectAll;
@@ -33,24 +34,26 @@ public class ResultActivity extends AppCompatActivity {
         buttonPrintAll = findViewById(R.id.buttonPrintAll);
         listViewResult = findViewById(R.id.listViewResult);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(ResultActivity.this,
-                R.layout.forlist, listResult); // то, как данные будут храниться
+        adapter = new ArrayAdapter<>(ResultActivity.this, R.layout.forlist, listResult); // то, как данные будут храниться
+        listViewResult.setAdapter(adapter);
+        listViewResult.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
         buttonSelectAll.setOnClickListener(view -> {
             try {
                 if (!listResult.isEmpty()) {
+
                     for (int i = 0; i < listResult.size(); i++) {
                         if (!listResult.get(i).isEmpty()) {
                             listViewResult.setItemChecked(i, true);
                         }
                     }
-                } else {
-                    Toast.makeText(ResultActivity.this, "List is empty!",
-                            Toast.LENGTH_LONG).show();
                 }
-            } catch (Exception ex) {
-                Toast.makeText(ResultActivity.this, "Error!",
-                        Toast.LENGTH_LONG).show();
+                else {
+                    Toast.makeText(ResultActivity.this, "List is empty!", Toast.LENGTH_LONG).show();
+                }
+            }
+            catch (Exception ex) {
+                Toast.makeText(ResultActivity.this, "Error!", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -62,13 +65,13 @@ public class ResultActivity extends AppCompatActivity {
                             listViewResult.setItemChecked(i, false);
                         }
                     }
-                } else {
-                    Toast.makeText(ResultActivity.this, "List is empty!",
-                            Toast.LENGTH_LONG).show();
                 }
-            } catch (Exception ex) {
-                Toast.makeText(ResultActivity.this, "Error!",
-                        Toast.LENGTH_LONG).show();
+                else {
+                    Toast.makeText(ResultActivity.this, "List is empty!", Toast.LENGTH_LONG).show();
+                }
+            }
+            catch (Exception ex) {
+                Toast.makeText(ResultActivity.this, "Error!", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -79,8 +82,7 @@ public class ResultActivity extends AppCompatActivity {
                 int key = sbArray.keyAt(i);
                 if (sbArray.get(key)) {
                     result = listResult.get(i);
-                    Toast.makeText(ResultActivity.this, result,
-                            Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ResultActivity.this, result, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -91,8 +93,6 @@ public class ResultActivity extends AppCompatActivity {
                 finish();
             }
         });
-        listViewResult.setAdapter(adapter);
-        listViewResult.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
     }
 

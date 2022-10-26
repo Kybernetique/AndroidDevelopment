@@ -24,6 +24,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class FragmentCRUD extends Fragment {
@@ -108,7 +109,7 @@ public class FragmentCRUD extends Fragment {
                 String input = editTextBossFullName.getText().toString();
                 output = (ArrayList<String>) listOfBosses.stream().filter(value -> value.contains(input)).collect(Collectors.toList());
                 Intent intent = new Intent(getActivity(), ResultActivity.class);
-                (getActivity()).startActivity(intent);
+                (requireActivity()).startActivity(intent);
             }
         });
 

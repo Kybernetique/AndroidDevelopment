@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".FragmentCRUD"
+        tools:context=".ResultActivity"
         android:orientation="horizontal">
 
     <LinearLayout
@@ -13,7 +13,7 @@
             android:layout_height="298dp">
 
         <ListView
-                android:id="@+id/listViewOfBosses"
+                android:id="@+id/listViewResult"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:layout_editor_absoluteX="0dp"
@@ -29,32 +29,32 @@
             android:orientation="vertical">
 
         <Button
-                android:id="@+id/buttonCreate"
+                android:id="@+id/buttonSelectAll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/text_buttonCreate" />
+                android:text="@string/text_buttonSelectAll" />
 
         <Button
-                android:id="@+id/buttonRead"
+                android:id="@+id/buttonDeselectAll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/text_buttonRead" />
+                android:text="@string/text_buttonDeselectAll" />
 
         <Button
-                android:id="@+id/buttonUpdate"
+                android:id="@+id/buttonPrintAll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/text_buttonUpdate" />
+                android:text="@string/text_buttonPrintAll" />
 
         <Button
-                android:id="@+id/buttonDelete"
+                android:id="@+id/buttonBack"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/text_buttonDelete"
+                android:text="@string/text_buttonBack"
                 android:minHeight="48dp" />
 
     </LinearLayout>

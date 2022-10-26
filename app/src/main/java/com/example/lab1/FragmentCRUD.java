@@ -1,9 +1,13 @@
 package com.example.lab1;
 
+import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.util.SparseBooleanArray;
@@ -14,16 +18,19 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class FragmentCRUD extends Fragment {
     ArrayAdapter<String> adapter;
-
-    ArrayList<String> listOfBosses;
+    View view;
+    ArrayList<String> listOfBosses ;
     ListView listViewOfBosses;
 
     EditText editTextBossFullName;
@@ -38,17 +45,17 @@ public class FragmentCRUD extends Fragment {
 
     static ArrayList<String> output;
 
+    static String key = "listOfBosses";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_crud, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_crud, container, false);
 
-        listOfBosses = new ArrayList<>();
         listViewOfBosses = view.findViewById(R.id.listViewOfBosses); // получили доступ к listview
         editTextBossFullName = view.findViewById(R.id.editTextBossFullName);
 
@@ -57,6 +64,17 @@ public class FragmentCRUD extends Fragment {
         buttonUpdate = view.findViewById(R.id.buttonUpdate);
         buttonDelete = view.findViewById(R.id.buttonDelete);
 
+        if (savedInstanceState != null) {
+            listOfBosses = savedInstanceState.getStringArrayList(key);
+        }
+        else {
+            listOfBosses = new ArrayList<>();
+        }
+
+        adapter = new ArrayAdapter<>(getActivity(), R.layout.forlist, listOfBosses); // то, как данные будут храниться
+        listViewOfBosses.setAdapter(adapter);
+        listViewOfBosses.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        listViewOfBosses.clearChoices();
 
         listViewOfBosses.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -73,19 +91,14 @@ public class FragmentCRUD extends Fragment {
                 try {
                     if (!listOfBosses.contains(editTextBossFullName.getText().toString())) {
                         listOfBosses.add(editTextBossFullName.getText().toString());
-
-                        adapter = new ArrayAdapter<>(getActivity(),
-                                R.layout.forlist, listOfBosses); // то, как данные будут храниться
-                        listViewOfBosses.setAdapter(adapter);
-                        listViewOfBosses.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-                        listViewOfBosses.clearChoices();
-                    } else {
-                        Toast.makeText(getActivity(), "The element already exists!",
-                                Toast.LENGTH_LONG).show();
+                        adapter.notifyDataSetChanged();
                     }
-                } catch (Exception ex) {
-                    Toast.makeText(getActivity(), "Error!",
-                            Toast.LENGTH_LONG).show();
+                    else {
+                        Toast.makeText(getActivity(), "The element already exists!", Toast.LENGTH_LONG).show();
+                    }
+                }
+                catch (Exception ex) {
+                    Toast.makeText(getActivity(), "Error!", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -94,12 +107,9 @@ public class FragmentCRUD extends Fragment {
             @Override
             public void onClick(View view) {
                 String input = editTextBossFullName.getText().toString();
-                output = (ArrayList<String>) listOfBosses
-                        .stream()
-                        .filter(value -> value.startsWith(input))
-                        .collect(Collectors.toList());
+                output = (ArrayList<String>) listOfBosses.stream().filter(value -> value.contains(input)).collect(Collectors.toList());
                 Intent intent = new Intent(getActivity(), ResultActivity.class);
-                (getActivity()).startActivity(intent);
+                (requireActivity()).startActivity(intent);
             }
         });
 
@@ -109,20 +119,18 @@ public class FragmentCRUD extends Fragment {
                 try {
                     if (!selectedItemValue.isEmpty()) {
                         if (!listOfBosses.contains(editTextBossFullName.getText().toString())) {
-                            listOfBosses.set(selectedItemPosition, editTextBossFullName
-                                    .getText().toString());
+                            listOfBosses.set(selectedItemPosition, editTextBossFullName.getText().toString());
                             adapter.notifyDataSetChanged();
                             listViewOfBosses.clearChoices();
                         }
                         else {
-                            Toast.makeText(getActivity(), "There is already an element with this name.",
-                                    Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "There is already an element with this name.", Toast.LENGTH_LONG).show();
                         }
                     }
 
-                } catch (Exception ex) {
-                    Toast.makeText(getActivity(), "Select an item first.",
-                            Toast.LENGTH_LONG).show();
+                }
+                catch (Exception ex) {
+                    Toast.makeText(getActivity(), "Select an item first.", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -134,13 +142,19 @@ public class FragmentCRUD extends Fragment {
                     listOfBosses.remove(selectedItemPosition);
                     adapter.notifyDataSetChanged();
                     listViewOfBosses.clearChoices();
-                } catch (Exception ex) {
-                    Toast.makeText(getActivity(), "Error!",
-                            Toast.LENGTH_SHORT).show();
+                }
+                catch (Exception ex) {
+                    Toast.makeText(getActivity(), "Error!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
         return view;
     }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putStringArrayList(key, listOfBosses);
+        super.onSaveInstanceState(outState);
+    }
 }
+

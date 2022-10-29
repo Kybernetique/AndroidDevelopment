@@ -1,16 +1,12 @@
 package com.example.lab1;
 
-import android.app.FragmentManager;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,19 +14,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class FragmentCRUD extends Fragment {
+public class BossFragment extends Fragment {
     ArrayAdapter<String> adapter;
     View view;
-    ArrayList<String> listOfBosses ;
+
+    ArrayList<String> listOfBosses;
     ListView listViewOfBosses;
 
     EditText editTextBossFullName;
@@ -40,12 +34,14 @@ public class FragmentCRUD extends Fragment {
     Button buttonUpdate;
     Button buttonDelete;
 
-    int selectedItemPosition;
     String selectedItemValue;
+    int selectedItemPosition;
 
     static ArrayList<String> output;
 
-    static String key = "listOfBosses";
+    static String keyList = "listOfBosses";
+
+    static String keyInt = "selectedItemPosition";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,7 +50,7 @@ public class FragmentCRUD extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_crud, container, false);
+        view = inflater.inflate(R.layout.fragment_boss, container, false);
 
         listViewOfBosses = view.findViewById(R.id.listViewOfBosses); // получили доступ к listview
         editTextBossFullName = view.findViewById(R.id.editTextBossFullName);
@@ -65,7 +61,7 @@ public class FragmentCRUD extends Fragment {
         buttonDelete = view.findViewById(R.id.buttonDelete);
 
         if (savedInstanceState != null) {
-            listOfBosses = savedInstanceState.getStringArrayList(key);
+            listOfBosses = savedInstanceState.getStringArrayList(keyList);
         }
         else {
             listOfBosses = new ArrayList<>();
@@ -117,17 +113,17 @@ public class FragmentCRUD extends Fragment {
             @Override
             public void onClick(View view) {
                 try {
-                    if (!selectedItemValue.isEmpty()) {
-                        if (!listOfBosses.contains(editTextBossFullName.getText().toString())) {
-                            listOfBosses.set(selectedItemPosition, editTextBossFullName.getText().toString());
-                            adapter.notifyDataSetChanged();
-                            listViewOfBosses.clearChoices();
-                        }
-                        else {
-                            Toast.makeText(getActivity(), "There is already an element with this name.", Toast.LENGTH_LONG).show();
-                        }
-                    }
+                    UpdateBossFragment updateBossFragment = new UpdateBossFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putStringArrayList(keyList, listOfBosses);
+                    bundle.putInt(keyInt, selectedItemPosition);
+                    updateBossFragment.setArguments(bundle);
 
+                    FragmentTransaction ft = getFragmentManager().beginTransaction();
+                    ft.add(R.id.FragmentContainer, updateBossFragment);
+                    ft.hide(BossFragment.this);
+                    ft.addToBackStack(MainActivity.BOSS_FRAGMENT_TAG);
+                    ft.commit();
                 }
                 catch (Exception ex) {
                     Toast.makeText(getActivity(), "Select an item first.", Toast.LENGTH_LONG).show();
@@ -153,8 +149,12 @@ public class FragmentCRUD extends Fragment {
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putStringArrayList(key, listOfBosses);
+        outState.putStringArrayList(keyList, listOfBosses);
         super.onSaveInstanceState(outState);
+    }
+
+    public void setNewBossFullName(ArrayList<String> listOfBosses) {
+
     }
 }
 

@@ -152,9 +152,5 @@ public class BossFragment extends Fragment {
         outState.putStringArrayList(keyList, listOfBosses);
         super.onSaveInstanceState(outState);
     }
-
-    public void setNewBossFullName(ArrayList<String> listOfBosses) {
-
-    }
 }
 

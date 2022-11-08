@@ -1,22 +1,12 @@
 package com.example.lab1;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 
-import android.app.FragmentManager;
-import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.LinearLayout;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    FragmentCRUD fragmentCRUD;
-    private static final String FRAGMENT_TAG = "fragmentCRUD";
+    BossFragment bossFragment;
+    static final String BOSS_FRAGMENT_TAG = "bossFragment";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,13 +14,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if (savedInstanceState == null) {
-            fragmentCRUD = new FragmentCRUD();
+            bossFragment = new BossFragment();
         } else {
-            fragmentCRUD = (FragmentCRUD) getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG);
+            bossFragment = (BossFragment) getSupportFragmentManager().findFragmentByTag(BOSS_FRAGMENT_TAG);
         }
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.FragmentContainer, fragmentCRUD, FRAGMENT_TAG)
+                .replace(R.id.FragmentContainer, bossFragment, BOSS_FRAGMENT_TAG)
                 .commit();
     }
 }

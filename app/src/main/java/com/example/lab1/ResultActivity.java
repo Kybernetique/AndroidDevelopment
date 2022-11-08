@@ -21,7 +21,7 @@ public class ResultActivity extends AppCompatActivity {
 
 
     ListView listViewResult;
-    ArrayList<String> listResult = FragmentCRUD.output;
+    ArrayList<String> listResult = BossFragment.output;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

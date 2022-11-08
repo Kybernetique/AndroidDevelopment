@@ -9,5 +9,7 @@
     <string name="text_buttonDeselectAll">Отменить выбор</string>
     <string name="text_buttonPrintAll">Вывести всех</string>
     <string name="text_buttonBack">Назад</string>
+    <string name="text_buttonOk">ОК</string>
     <string name="full_name">Иванов ИИ</string>
+    <string name="text_viewEnterNewData">Введите новые данные:</string>
 </resources>

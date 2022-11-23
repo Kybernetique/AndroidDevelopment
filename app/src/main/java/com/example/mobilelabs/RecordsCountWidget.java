@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
-import com.example.mobilelabs.storage.DBProductStorage;
+import com.example.mobilelabs.storage.DBBossStorage;
 
 /**
  * Implementation of App Widget functionality.
@@ -21,8 +21,8 @@ public class RecordsCountWidget extends AppWidgetProvider {
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.records_count_widget);
 
-        DBProductStorage dbProductStorage = new DBProductStorage(context);
-        views.setTextViewText(R.id.textViewWidgetText, "Записей в БД:" + Integer.toString(dbProductStorage.ProductCount()));
+        DBBossStorage dbBossStorage = new DBBossStorage(context);
+        views.setTextViewText(R.id.textViewWidgetText, "Записей в БД:" + Integer.toString(dbBossStorage.BossCount()));
 
         Intent updateIntent = new Intent(context, RecordsCountWidget.class);
         updateIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);

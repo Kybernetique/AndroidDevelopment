@@ -19,6 +19,7 @@ public class Settings extends AppCompatActivity {
     RadioButton radioButtonDB;
     RadioButton radioButtonFile;
     Button buttonSave;
+    Button buttonBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +29,15 @@ public class Settings extends AppCompatActivity {
         radioGroup = findViewById(R.id.radioGroupSaveMode);
         radioButtonDB = findViewById(R.id.radioButtonUseDB);
         radioButtonFile = findViewById(R.id.radioButtonUseFiles);
+
         buttonSave = findViewById(R.id.buttonSaveSettings);
         buttonSave.setOnClickListener(v -> {
             saveSettings();
+        });
+
+        buttonBack = findViewById(R.id.buttonBack);
+        buttonBack.setOnClickListener(v -> {
+            finish();
         });
 
         sPref = getSharedPreferences("settings", MODE_PRIVATE);

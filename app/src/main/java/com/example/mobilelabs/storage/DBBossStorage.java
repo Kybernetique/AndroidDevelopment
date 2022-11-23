@@ -14,81 +14,85 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DBProductStorage implements storageInterface{
+public class DBBossStorage implements IBossStorage {
     DBHelper dbHelper;
-    private ArrayList<product> products = new ArrayList<product>();
-    public DBProductStorage(Context context){
+    private ArrayList<Boss> Bosses = new ArrayList<Boss>();
+
+    public DBBossStorage(Context context){
+/*
+        context.deleteDatabase("myDB");
+*/
         dbHelper = new DBHelper(context);
         readAll();
     }
     @Override
-    public List<product> getList() {
-        return products;
+    public List<Boss> getList() {
+        return Bosses;
     }
 
     @Override
-    public void add(product product) {
+    public void add(Boss Boss) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("name", product.name);
-        long rowID = db.insert("products", null, cv);
-        product.id = (int) rowID;
-        products.add(product);
+        cv.put("name", Boss.name);
+        long rowID = db.insert("bosses", null, cv);
+        Boss.id = (int) rowID;
+        Bosses.add(Boss);
         dbHelper.close();
     }
 
     @Override
-    public void update(product product) {
+    public void update(Boss Boss) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("name", product.name);
-        db.update("products", cv, "id = ?", new String[] {String.valueOf(product.id)});
-        dbHelper.close();
-        readAll();
-    }
-
-    @Override
-    public void delete(product product) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put("name", product.name);
-        db.delete("products", "id = " + product.id, null);
+        cv.put("name", Boss.name);
+        db.update("bosses", cv, "id = ?", new String[] {String.valueOf(Boss.id)});
         dbHelper.close();
         readAll();
     }
 
     @Override
-    public List<product> findSimilar(product product) {
-        ArrayList<product> products = new ArrayList<product>();
+    public void delete(Boss Boss) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Cursor c = db.query("products", null, "name = ?", new String[] {product.name}, null, null, null);
+        ContentValues cv = new ContentValues();
+        cv.put("name", Boss.name);
+        db.delete("bosses", "id = " + Boss.id, null);
+        dbHelper.close();
+        readAll();
+    }
+
+    @Override
+    public List<Boss> findSimilar(Boss Boss) {
+        ArrayList<Boss> Bosses = new ArrayList<Boss>();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor c = db.query("bosses", null, "name = ?", new String[] {Boss.name}, null, null, null);
         if (c.moveToFirst()) {
             int idColIndex = c.getColumnIndex("id");
             int nameColIndex = c.getColumnIndex("name");
             do {
-                product pr = new product();
+                Boss pr = new Boss();
                 pr.id = c.getInt(idColIndex);
                 pr.name = c.getString(nameColIndex);
-                products.add(pr);
+                Bosses.add(pr);
             } while (c.moveToNext());
         }
         dbHelper.close();
-        return products;
+        return Bosses;
     }
 
 
     public void readAll(){
-        products.clear();
+        Bosses.clear();
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Cursor c = db.query("products", null, null, null, null, null, null);
+        Cursor c = db.query("bosses", null, null, null, null, null, null);
         if (c.moveToFirst()) {
             int idColIndex = c.getColumnIndex("id");
             int nameColIndex = c.getColumnIndex("name");
             do {
-                product pr = new product();
+                Boss pr = new Boss();
                 pr.id = c.getInt(idColIndex);
                 pr.name = c.getString(nameColIndex);
-                products.add(pr);
+                Bosses.add(pr);
             } while (c.moveToNext());
         }
         dbHelper.close();
@@ -102,9 +106,9 @@ public class DBProductStorage implements storageInterface{
                     InputStreamReader streamReader = new InputStreamReader(fileInputStream)){
                     Gson gson = new Gson();
                     DataItems dataItems = gson.fromJson(streamReader, DataItems.class);
-                    products = (ArrayList<product>) dataItems.getProducts();
-                    for (int i = 0; i < products.size(); ++i){
-                        add(products.get(i));
+                    Bosses = (ArrayList<Boss>) dataItems.getBosses();
+                    for (int i = 0; i < Bosses.size(); ++i){
+                        add(Bosses.get(i));
                     }
                 }
                 catch (IOException ex){
@@ -114,14 +118,15 @@ public class DBProductStorage implements storageInterface{
         });
         thread.start();
     }
-    private static class DataItems {
-        private List<product> products;
 
-        List<product> getProducts() {
-            return products;
+    private static class DataItems {
+        private List<Boss> Bosses;
+
+        List<Boss> getBosses() {
+            return Bosses;
         }
-        void setProducts(List<product> products) {
-            this.products = products;
+        void setBosses(List<Boss> Bosses) {
+            this.Bosses = Bosses;
         }
     }
 
@@ -133,7 +138,10 @@ public class DBProductStorage implements storageInterface{
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL("create table products ("
+/*
+            db.execSQL("DROP TABLE IF EXISTS bosses");
+*/
+            db.execSQL("create table bosses ("
                     + "id integer primary key autoincrement,"
                     + "name text" + ");");
         }
@@ -143,7 +151,7 @@ public class DBProductStorage implements storageInterface{
 
         }
     }
-    public int ProductCount(){
-        return products.size();
+    public int BossCount(){
+        return Bosses.size();
     }
 }

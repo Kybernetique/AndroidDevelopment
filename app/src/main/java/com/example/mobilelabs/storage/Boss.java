@@ -1,16 +1,16 @@
 package com.example.mobilelabs.storage;
 
-public class product {
+public class Boss {
     public int id;
     public String name;
-    public product(String name){
+    public Boss(String name){
         this.name = name;
     }
-    public product(){
+    public Boss(){
         name = "";
     }
     @Override
     public String toString(){
-        return "id = " + Integer.toString(id) + "name = " + name;
+        return "id = " + id + " name = " + name;
     }
 }

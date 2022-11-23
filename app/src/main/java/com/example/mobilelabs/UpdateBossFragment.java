@@ -4,30 +4,28 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class EditProductFragment extends DialogFragment {
-    public String resultProductName;
+public class UpdateBossFragment extends DialogFragment {
+    public String resultBossName;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Bundle bundle = this.getArguments();
-        String productName = bundle.getString("productName");
+        String bossName = bundle.getString("bossName");
 
-        getDialog().setTitle("Edit product!");
-        View v = inflater.inflate(R.layout.edit_product_fragment, null);
+        getDialog().setTitle("Edit boss!");
+        View v = inflater.inflate(R.layout.update_boss_fragment, null);
         Button button = v.findViewById(R.id.buttonSuccess);
-        TextView textViewName =  v.findViewById(R.id.editTextProductNameFragment);
-        textViewName.setText(productName);
+        TextView textViewName =  v.findViewById(R.id.editTextBossNameFragment);
+        textViewName.setText(bossName);
 
         button.setOnClickListener(u -> {
-            resultProductName = textViewName.getText().toString();
+            resultBossName = textViewName.getText().toString();
             dismiss();
         });
         return v;

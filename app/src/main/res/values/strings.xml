@@ -29,4 +29,18 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="app_widget_description">This is an app widget description</string>
+
+    <string name="text_buttonCreate">Create</string>
+    <string name="text_buttonRead">Read</string>
+    <string name="text_buttonUpdate">Update</string>
+    <string name="text_buttonDelete">Delete</string>
+    <string name="text_buttonSelectAll">Select all</string>
+    <string name="text_buttonDeselectAll">Deselect all</string>
+    <string name="text_buttonPrintAll">Print all</string>
+    <string name="text_buttonBack">Back</string>
+    <string name="text_buttonOk">OK</string>
+    <string name="text_buttonSave">Save</string>
+    <string name="text_buttonSettings">Settings</string>
+    <string name="full_name">Ivanov II</string>
+    <string name="text_viewEnterNewData">Enter new data:</string>
 </resources>

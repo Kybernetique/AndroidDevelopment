@@ -9,67 +9,67 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import android.content.Context;
 
-public class FileProductStorage implements storageInterface{
-    private final String fileName = "productsFile";
-    private static ArrayList<product> products;
+public class FileBossStorage implements IBossStorage {
+    private final String fileName = "bossesFile";
+    private static ArrayList<Boss> Bosses;
     private Context context;
 
-    public FileProductStorage(Context context){
+    public FileBossStorage(Context context){
         this.context = context;
         importFromJSON();
     }
 
     @Override
-    public ArrayList<product> getList() {
-        return products;
+    public ArrayList<Boss> getList() {
+        return Bosses;
     }
 
     @Override
-    public void add(product product) {
+    public void add(Boss Boss) {
         int id = 0;
-        for (int i = 0; i < products.size(); ++i){
-            if (id <= products.get(i).id){
-                id = products.get(i).id + 1;
+        for (int i = 0; i < Bosses.size(); ++i){
+            if (id <= Bosses.get(i).id){
+                id = Bosses.get(i).id + 1;
             }
         }
-        product.id = id;
-        products.add(product);
+        Boss.id = id;
+        Bosses.add(Boss);
         exportToJSON();
     }
 
     @Override
-    public void update(product product) {
-        for (int i = 0; i < products.size(); ++i){
-            if (products.get(i).id == product.id){
-                products.get(i).name = product.name;
+    public void update(Boss Boss) {
+        for (int i = 0; i < Bosses.size(); ++i){
+            if (Bosses.get(i).id == Boss.id){
+                Bosses.get(i).name = Boss.name;
             }
         }
         exportToJSON();
     }
 
     @Override
-    public void delete(product product) {
+    public void delete(Boss Boss) {
         int index = -1;
-        for (int i = 0; i < products.size(); ++i){
-            if (products.get(i).id == product.id){
+        for (int i = 0; i < Bosses.size(); ++i){
+            if (Bosses.get(i).id == Boss.id){
                 index = i;
             }
         }
         if (index != -1){
-            products.remove(index);
+            Bosses.remove(index);
         }
         exportToJSON();
     }
 
     @Override
-    public ArrayList<product> findSimilar(product product) {
-        ArrayList<product> similarProducts = new ArrayList<product>();
-        for (int i = 0; i < products.size(); ++i){
-            if (products.get(i).name.contains(product.name)){
-                similarProducts.add(products.get(i));
+    public ArrayList<Boss> findSimilar(Boss Boss) {
+        ArrayList<Boss> similarBosses = new ArrayList<Boss>();
+        for (int i = 0; i < Bosses.size(); ++i){
+            if (Bosses.get(i).name.contains(Boss.name)){
+                similarBosses.add(Bosses.get(i));
             }
         }
-        return similarProducts;
+        return similarBosses;
     }
     private void exportToJSON() {
         Thread thread = new Thread(new Runnable() {
@@ -77,7 +77,7 @@ public class FileProductStorage implements storageInterface{
             public void run() {
                 Gson gson = new Gson();
                 DataItems dataItems = new DataItems();
-                dataItems.setProducts(products);
+                dataItems.setBosses(Bosses);
                 String jsonString = gson.toJson(dataItems);
 
                 try(FileOutputStream fileOutputStream =
@@ -99,10 +99,10 @@ public class FileProductStorage implements storageInterface{
                     InputStreamReader streamReader = new InputStreamReader(fileInputStream)){
                     Gson gson = new Gson();
                     DataItems dataItems = gson.fromJson(streamReader, DataItems.class);
-                    products = (ArrayList<product>) dataItems.getProducts();
+                    Bosses = (ArrayList<Boss>) dataItems.getBosses();
                 }
                 catch (IOException ex){
-                    products = new ArrayList<product>();
+                    Bosses = new ArrayList<Boss>();
                     ex.printStackTrace();
                 }
             }
@@ -111,13 +111,13 @@ public class FileProductStorage implements storageInterface{
         while(thread.isAlive()){}
     }
     private static class DataItems {
-        private List<product> products;
+        private List<Boss> Bosses;
 
-        List<product> getProducts() {
-            return products;
+        List<Boss> getBosses() {
+            return Bosses;
         }
-        void setProducts(List<product> products) {
-            this.products = products;
+        void setBosses(List<Boss> Bosses) {
+            this.Bosses = Bosses;
         }
     }
 }

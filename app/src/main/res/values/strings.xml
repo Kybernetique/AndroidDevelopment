@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Laba4</string>
+    <string name="widget_name">My first widget</string>
+    <string name="widget_text">Text in widget</string>
+    <string name="red">Red</string>
+    <string name="green">Green</string>
+    <string name="blue">Blue</string>
+    <string name="ok">Ok</string>
+    <string name="app_widget_description">Count of entities</string>
+
+    <string name="text_buttonCreate">Create</string>
+    <string name="text_buttonRead">Read</string>
+    <string name="text_buttonUpdate">Update</string>
+    <string name="text_buttonDelete">Delete</string>
+    <string name="text_buttonSelectAll">Select all</string>
+    <string name="text_buttonDeselectAll">Deselect all</string>
+    <string name="text_buttonPrintAll">Print all</string>
+    <string name="text_buttonBack">Back</string>
+    <string name="text_buttonOk">OK</string>
+    <string name="text_buttonSave">Save</string>
+    <string name="text_buttonSettings">Settings</string>
+    <string name="text_buttonExport">Export</string>
+    <string name="text_buttonImport">Import</string>
+    <string name="text_buttonRefreshPage">Refresh Page</string>
+    <string name="full_name">Ivanov II</string>
+    <string name="text_viewEnterNewData">Enter new data:</string>
+</resources>

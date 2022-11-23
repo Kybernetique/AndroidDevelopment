@@ -17,32 +17,32 @@ public class FaceBitmap {
 
         {
             int radius = 300;
-            int center_x = 360;
-            int center_y = 360;
+            int center_x = 525; //165
+            int center_y = 750; //390
             int eye_radius = 80;
             int pupil_radius = eye_radius / 2;
             int mouth_radius = 80;
 
             if (mood == Mood.sad) {
-                canvas.drawARGB(100, 100, 100, 100);
+                canvas.drawARGB(16, 0, 0, 0);
             } else {
-                canvas.drawARGB(100, 255, 231, 51);
+                canvas.drawARGB(160, 0, 255, 64);
             }
 
             //Head
-            paint.setARGB(255, 240, 248, 255);
+            paint.setARGB(255, 255, 219, 172);
             paint.setStyle(Paint.Style.FILL);
             canvas.drawCircle(center_x, center_y, radius, paint);
 
             //Hat
-            paint.setColor(Color.GRAY);
+            paint.setARGB(255, 206, 0, 0);
             paint.setStyle(Paint.Style.FILL);
             RectF oval = new RectF();
             oval.set(center_x - radius, center_y - radius - 20, center_x + radius,
                     center_y + radius - 160);
             canvas.drawArc(oval, 180, 180, true, paint);
 
-            paint.setColor(Color.DKGRAY);
+            paint.setARGB(255, 114, 0, 0);
             paint.setStyle(Paint.Style.STROKE);
             paint.setStrokeWidth(50);
             oval.set(center_x - radius,
@@ -114,18 +114,13 @@ public class FaceBitmap {
                 canvas.drawArc(oval, 65, 50, false, paint);
             }
 
-            paint.setTextSize(40);
+            paint.setTextSize(80);
             int step = 60;
             int space = 40;
             if (mood == Mood.sad) {
                 String[] strings = new String[]{
-                        "6:45 am on the clock... ",
-                        "Not the best time to stand at a bus ",
-                        "station. ",
-                        "It feels like winter will never end. ",
-                        "...",
-                        "Anyway, shave yourself. And, please, ",
-                        "take away this pouches."};
+                        "Просыпайся!",
+                };
 
                 int len = step * strings.length;
 
@@ -138,10 +133,7 @@ public class FaceBitmap {
                 }
             } else {
                 String[] strings = new String[]{
-                        "You know... ",
-                        " ",
-                        "Then you move, ",
-                        "The Universe is moving towards"
+                        "Ты погряз в матрице..."
                 };
                 space = 80;
                 int len = step * strings.length;

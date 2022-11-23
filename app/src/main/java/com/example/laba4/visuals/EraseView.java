@@ -48,7 +48,7 @@ public class EraseView extends View {
         mPaint.setColor(Color.TRANSPARENT);
         mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
         mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeWidth(70);
+        mPaint.setStrokeWidth(164);
     }
 
     public EraseView(Context context, @Nullable AttributeSet attrs) {
@@ -84,8 +84,8 @@ public class EraseView extends View {
             RectF oval = new RectF();
 
             int radius = 300;
-            int center_x = 360;
-            int center_y = 360;
+            int center_x = 525;
+            int center_y = 750;
 
             for (int i = center_y; i < center_y + radius; i += step) {
                 for (int j = center_x - radius; j < center_x + radius; j += step) {

@@ -32,10 +32,10 @@ public class FaceQuestActivity extends AppCompatActivity {
 
         View view = findViewById(R.id.erase);
         view.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        ((EraseView)view).setParent(this);
+        ((EraseView) view).setParent(this);
     }
 
-    void updateThePicture(){
+    void updateThePicture() {
         setBitmapAsBackground(Mood.happy);
 
         Handler handler = new Handler();
@@ -44,10 +44,10 @@ public class FaceQuestActivity extends AppCompatActivity {
             public void run() {
                 startActivity(new Intent(FaceQuestActivity.this, MainActivity.class));
             }
-        },6000);
+        }, 1000);
     }
 
-    private void setBitmapAsBackground(Mood mood){
+    private void setBitmapAsBackground(Mood mood) {
         ConstraintLayout layout = findViewById(R.id.erase_background);
         FaceBitmap faceBitmap = new FaceBitmap();
         Display display = getWindowManager().getDefaultDisplay();
@@ -56,7 +56,7 @@ public class FaceQuestActivity extends AppCompatActivity {
         int width = size.x;
         int height = size.y;
 
-        Bitmap bitmap = faceBitmap.getBitmap(width, height-170,mood);
+        Bitmap bitmap = faceBitmap.getBitmap(width, height - 170, mood);
         SaveBitmap(bitmap);
 
         ImageView imageView = findViewById(R.id.erase_imageview);
@@ -73,7 +73,8 @@ public class FaceQuestActivity extends AppCompatActivity {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
             fOut.flush(); // Not really required
             fOut.close(); // do not forget to close the stream
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
         }
     }
 
@@ -85,7 +86,8 @@ public class FaceQuestActivity extends AppCompatActivity {
                 Bitmap myBitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
                 return myBitmap;
             }
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
 
         }
         return null;

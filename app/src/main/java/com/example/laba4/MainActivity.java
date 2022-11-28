@@ -1,5 +1,6 @@
 package com.example.laba4;
 
+import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,10 +42,9 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
     Button buttonRead;
     Button buttonUpdate;
     Button buttonDelete;
-    Button buttonWidget;
 
     SharedPreferences sPref;
-    private List<Worker> workers;
+    public static List<Worker> workers;
     WorkerStorage workerStorage;
     DBHelper dbHelper;
     IService dbService;
@@ -98,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
                     Worker worker = new Worker(name);
                     worker.age = age;
                     workers.add(worker);
+                    dbService.updateWidget();
                     adapter.notifyDataSetChanged();
                 }
                 else {
@@ -110,11 +112,15 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
             @Override
             public void onClick(View view) {
                 String name = nameText.getText().toString();
+/*
                 int age = Integer.parseInt(ageText.getText().toString());
+*/
 
                 Intent intent = new Intent(MainActivity.this, SearchResultsActivity.class);
                 intent.putExtra("workerName", name);
+/*
                 intent.putExtra("workerAge", age);
+*/
                 startActivity(intent);
             }
         });
@@ -135,6 +141,8 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
                 }
                 bundle.putString("workerName", workerName);
                 bundle.putInt("workerAge", workerAge);
+                adapter.notifyDataSetChanged();
+                dbService.updateWidget();
                 updateWorkerFragment.setArguments(bundle);
                 updateWorkerFragment.show(getSupportFragmentManager(), "updateWorker");
             }
@@ -143,15 +151,37 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SparseBooleanArray sparseBooleanArray = listView.getCheckedItemPositions();
-                int len = listView.getCount();
-                for (int i = 0; i < len; i++) {
-                    if (sparseBooleanArray.get(i) == true) {
-                        workers.remove(adapter.getItem(i));
+                CheckBox checkboxDB = findViewById(R.id.checkboxDB);
+                if (checkboxDB.isChecked()) {
+                    SparseBooleanArray parsedList = listView.getCheckedItemPositions();
+                    for (int i = parsedList.size() - 1; i >= 0; i--) {
+                        if (parsedList.valueAt(i)) {
+                            adapter.remove(adapter.getItem(parsedList.keyAt(i)));
+                        }
+                    }
+
+                    for (int i = 0; i < listView.getCount(); i++) {
+                        listView.setItemChecked(i, false);
                     }
                 }
-                listView.clearChoices();
+                else {
+                    SparseBooleanArray parsedList = listView.getCheckedItemPositions();
+
+                    for (int i = listView.getCount() - 1; i >= 0; i--) {
+                        if (parsedList.indexOfKey(i) < 0) {
+                            adapter.remove(adapter.getItem(i));
+                        }
+                        else if (!parsedList.valueAt(i)) {
+                            adapter.remove(adapter.getItem(i));
+                        }
+                    }
+
+                    for (int i = 0; i < listView.getCount(); i++) {
+                        listView.setItemChecked(i, true);
+                    }
+                }
                 adapter.notifyDataSetChanged();
+                dbService.updateWidget();
             }
         });
 
@@ -165,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
         if (checkboxDB.isChecked()) {
             for (Worker worker : workers) {
                 if (worker.id != 0) {
-                     // workerStorage.update(worker);
+                    // workerStorage.update(worker);
                     dbService.update(worker);
                 }
                 else {
@@ -173,6 +203,7 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
                     dbService.create(worker);
                 }
             }
+            syncDatabases();
         }
         else {
             Runnable runnable = new Runnable() {
@@ -186,6 +217,7 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
             Thread thread = new Thread(runnable);
             // Запускаем поток
             thread.start();
+            syncDatabases();
         }
     }
 
@@ -203,7 +235,6 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
             }
         }
         else {
-            Context context = getBaseContext();
             Runnable runnable = new Runnable() {
                 Context context = getBaseContext();
 
@@ -243,15 +274,16 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
     }
 
     private void syncDatabases() {
-
         Context context = getBaseContext();
         workerStorage = new WorkerStorage(context);
         List<Worker> workersDB = workerStorage.getFullList();
+
         List<Worker> workersJSON = JSONHelper.importFromJSON(context);
         if (workersJSON != null)
             for (Worker worker : workersJSON) {
                 worker.id = 0;
             }
+
         if (workersJSON != null)
             for (Worker worker : workersJSON) {
                 boolean isExist = false;
@@ -275,6 +307,7 @@ public class MainActivity extends AppCompatActivity implements DialogInterface.O
             else
                 workerStorage.create(worker);
         }
+
         JSONHelper.exportToJSON(context, workersDB);
     }
 
